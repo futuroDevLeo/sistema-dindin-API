@@ -1,18 +1,18 @@
 create database dindin;
 
-create table if not exists usuarios (
+create table usuarios (
   id serial primary key,
   nome text not null,
   email text unique not null,
   senha text not null
  );
 
-create table if not exists categorias (
+create table categorias (
   id serial primary key,
   descricao text not null
  );
   
-create table if not exists transacoes (
+create table transacoes (
   id serial primary key,
   descricao text not null,
   valor integer not null,
