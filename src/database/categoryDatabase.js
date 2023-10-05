@@ -1,6 +1,6 @@
 const { pool } = require('../db');
 
-const listAllCategories = async () => {
+const listAllCategoriesDatabase = async () => {
     const query = {
         text: 'SELECT * FROM categorias',
     }
@@ -12,4 +12,8 @@ const listAllCategories = async () => {
         console.log(error);
         return new Error('Erro na consulta das categorias.');
     }
+};
+
+module.exports = {
+    listAllCategoriesDatabase
 };

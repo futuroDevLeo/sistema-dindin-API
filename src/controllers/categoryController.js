@@ -1,10 +1,10 @@
-
+const { listAllCategoriesDatabase } = require('../database/categoryDatabase');
 
 
 
 const listAllCategories = async (req, res) => {
     try {
-        const categories = await listAllCategories();
+        const categories = await listAllCategoriesDatabase();
         return res.status(200).json(categories);
     }
     catch (error) {
