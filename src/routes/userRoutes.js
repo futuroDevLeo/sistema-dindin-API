@@ -5,6 +5,9 @@ const userController = require('../controllers/userController');
 const userRouter = Router();
 
 userRouter.post('/usuario', userController.createNewUser);
+
+// middleware authenticaution
+
 userRouter.put("/usuario", userController.userUpdate);
 
 module.exports = userRouter;
