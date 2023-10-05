@@ -1,5 +1,7 @@
+const { body } = require('express-validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+
 const { findById } = require('../../database/userDatabase');
 
 const validationMiddleware = require('../validationMiddleware');

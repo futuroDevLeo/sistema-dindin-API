@@ -8,4 +8,4 @@ const authRouter = Router();
 
 authRouter.post('/login', loginValidation, authController.login);
 
-module.exports = authRouter;
+module.exports = { authRouter };

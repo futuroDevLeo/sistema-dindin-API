@@ -14,4 +14,4 @@ userRouter.put("/usuario",
     updateValitation,
     userController.userUpdate);
 
-module.exports = userRouter;
+module.exports = { userRouter };
