@@ -1,6 +1,16 @@
-const { pool } = require('../db');
+const pool = require('../db');
 
-
+const addNewUserDatabase = async (nome, email, hashPassword) => {
+    try {
+        const newUser = await pool.query(
+            'insert into usuarios (nome, email, senha) values ($1, $2, $3) returning *',
+            [nome, email, hashPassword]
+        );
+        return newUser.rows[0];
+    } catch (error) {
+        new Error('Erro no cadastro do usuário.');
+    }
+};
 
 const userUpdateDatabase = async (nome, email, senha) => {
     const query = {
@@ -15,6 +25,7 @@ const userUpdateDatabase = async (nome, email, senha) => {
         new Error('Erro na atualização do usuário.');
     }
 };
+
 const findByEmail = async (email) => {
 
     const query = {
@@ -35,4 +46,6 @@ const findByEmail = async (email) => {
 
 module.exports = {
     findByEmail,
+    addNewUserDatabase,
+    userUpdateDatabase
 };

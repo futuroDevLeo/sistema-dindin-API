@@ -1,7 +1,31 @@
-const { userUpdateDatabase, findByEmail } = require("../database/userDatabase");
+const { addNewUserDatabase, userUpdateDatabase, findByEmail } = require("../database/userDatabase");
 const bcrypt = require('bcrypt');
 
 const rouds = 10;
+
+const createNewUser = async (req, res) => {
+    const { nome, email, senha } = req.body;
+
+    try {
+        const emailExists = await findByEmail(email);
+
+        if (emailExists) {
+            return res.status(400).json({ mensagem: 'Email já cadastrado' });
+        }
+
+        const hashPassword = await bcrypt.hash(senha, rouds);
+
+        const newUser = await addNewUserDatabase(nome, email, hashPassword);
+
+        return res.status(201).json(newUser);
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ mensagem: "Erro interno do servidor!" });
+
+    }
+};
+
 const userUpdate = async (req, res) => {
     const { nome, email, senha } = req.body;
     try {
@@ -20,6 +44,7 @@ const userUpdate = async (req, res) => {
 };
 
 module.exports = {
-    userUpdate,
+    createNewUser,
+    userUpdate
 };
 

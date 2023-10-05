@@ -10,9 +10,10 @@ const pool = new Pool({
     password: process.env.DB_PASSWORD,
     ssl: true
 });
+
 const createTablesIfNotExists = async () => {
     const createTableUsers = `
-            create table usuarios (
+            create table if not exists usuarios (
             id serial primary key,
             nome text not null,
             email text unique not null,
@@ -23,7 +24,7 @@ const createTablesIfNotExists = async () => {
     await pool.query(createTableUsers);
 
     const createTableCategorys = `
-        create table categorias (
+        create table if not exists categorias (
             id serial primary key,
             descricao text not null
            );
@@ -32,7 +33,7 @@ const createTablesIfNotExists = async () => {
     await pool.query(createTableCategorys);
 
     const createTableTransactions = `
-        create table transacoes (
+        create table if not exists transacoes (
             id serial primary key,
             descricao text not null,
             valor integer not null,
