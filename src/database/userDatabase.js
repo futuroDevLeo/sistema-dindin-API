@@ -60,6 +60,20 @@ const existEmailDatabase = async (email, id) => {
     }
 };
 
+const findById = async (id) => {
+    const query = {
+        text: 'SELECT * FROM usuarios WHERE id = $1',
+        values: [id]
+    };
+    try {
+        const user = await pool.query(query);
+        return user.rows[0];
+    }
+    catch (error) {
+        console.log(error);
+        return new Error('Erro na consulta.');
+    }
+};
 
 module.exports = {
     findByEmail,
