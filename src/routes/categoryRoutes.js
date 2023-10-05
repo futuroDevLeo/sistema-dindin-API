@@ -14,4 +14,4 @@ categoryRouter.get("/categoria",
 
 
 
-module.exports = categoryRouter;
+module.exports = { categoryRouter };
