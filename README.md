@@ -4,7 +4,7 @@
 
 ## Como entregar?
 
-- [ ] Faça o fork desse repositório para o seu GitHub
+- [x] Faça o fork desse repositório para o seu GitHub
 - [ ] Clone o seu repositório em sua máquina
 - [ ] Desenvolva seu projeto, fazendo commits a cada alteração e push
 - [ ] Crie um PR (pull request)
