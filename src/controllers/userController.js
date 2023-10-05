@@ -1,4 +1,4 @@
-const { addNewUserDatabase, userUpdateDatabase, findByEmail } = require("../database/userDatabase");
+const { addNewUserDatabase, userUpdateDatabase, findByEmail, existEmailDatabase } = require("../database/userDatabase");
 const bcrypt = require('bcrypt');
 
 const rouds = 10;
@@ -28,9 +28,11 @@ const createNewUser = async (req, res) => {
 
 const userUpdate = async (req, res) => {
     const { nome, email, senha } = req.body;
+    const { id } = req.user;
     try {
-        const emailExists = await findByEmail(email);
+        const emailExists = await existEmailDatabase(email, id);
         if (emailExists) {
+            console.log("🚀 ~ file: userController.js:34 ~ userUpdate ~ emailExists:", emailExists)
             return res.status(409).json({ "mensagem": "E-mail já cadastrado." });
         }
         const passwordCrypt = await bcrypt.hash(senha, rouds);
