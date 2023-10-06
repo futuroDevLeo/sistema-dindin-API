@@ -1,11 +1,19 @@
 const { Router } = require('express');
-const { getAllTransactions } = require('../controllers/transactionController');
+
+const transactionController = require('../controllers/transactionController');
+
 const { verifyLoggedUser } = require('../middlewares/authentication')
+const { validateUpdateTransaction } = require('../middlewares/transactionMiddlewares')
 
 const transactionRouter = Router();
 
 transactionRouter.get('/transacao',
     verifyLoggedUser,
-    getAllTransactions);
+    transactionController.getAllTransactions);
+
+transactionRouter.put('/transacao/:id',
+    verifyLoggedUser,
+    validateUpdateTransaction,
+    transactionController.updateTransaction);
 
 module.exports = transactionRouter; 
