@@ -15,7 +15,6 @@ app.use(authRouter);
 app.use(userRouter);
 app.use(categoryRouter);
 app.use(transactionRouter);
-app.use(authRouter);
 
 
 app.listen(process.env.PORT,

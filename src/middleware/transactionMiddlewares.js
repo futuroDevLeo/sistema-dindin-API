@@ -18,7 +18,10 @@ const validateUpdateTransaction = [
     validationMiddleware,
 ];
 
+const validateCreateTransaction = [];
+
 
 module.exports = {
     validateUpdateTransaction,
+    validateCreateTransaction
 };
