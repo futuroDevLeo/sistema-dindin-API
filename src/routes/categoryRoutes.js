@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const categoryController = require('../controllers/categoryController');
-const { verifyLoggedUser } = require('../middlewares/authentication')
+const { verifyLoggedUser } = require('../middleware/authentication')
 
 const categoryRouter = Router();
 

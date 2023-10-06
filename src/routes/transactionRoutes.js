@@ -2,8 +2,8 @@ const { Router } = require('express');
 
 const transactionController = require('../controllers/transactionController');
 
-const { verifyLoggedUser } = require('../middlewares/authentication')
-const { validateUpdateTransaction } = require('../middlewares/transactionMiddlewares')
+const { verifyLoggedUser } = require('../middleware/authentication')
+const { validateUpdateTransaction } = require('../middleware/transactionMiddlewares')
 
 const transactionRouter = Router();
 
