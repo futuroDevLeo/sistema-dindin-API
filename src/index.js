@@ -1,5 +1,6 @@
 const express = require('express');
-const router = require('./routes/userRoutes');
+const userRouter = require('./routes/userRoutes');
+const authRouter = require('./routes/authRoutes');
 const { createTablesIfNotExists } = require('./db');
 
 const app = express();
@@ -8,7 +9,8 @@ createTablesIfNotExists();
 
 app.use(express.json());
 
-app.use(router);
+app.use(authRouter);
+app.use(userRouter);
 
 app.listen(process.env.PORT,
     console.log(`Servidor rodando na porta na ${process.env.PORT}`)
