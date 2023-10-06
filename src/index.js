@@ -20,4 +20,3 @@ app.use(transactionRouter);
 app.listen(process.env.PORT,
     console.log(`Servidor rodando na porta na ${process.env.PORT}`)
 );
-
