@@ -28,7 +28,7 @@ const createNewUser = async (req, res) => {
 
 const userUpdate = async (req, res) => {
     const { nome, email, senha } = req.body;
-    const { id } = req.user;
+    // const { id } = req.user;
     try {
         const emailExists = await existEmailDatabase(email, id);
         if (emailExists) {

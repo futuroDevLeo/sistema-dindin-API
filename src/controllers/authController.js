@@ -1,5 +1,6 @@
 const { findByEmail } = require("../database/userDatabase");
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const login = async (req, res) => {
     const { email, senha } = req.body;
