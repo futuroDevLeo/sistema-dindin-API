@@ -1,24 +1,23 @@
 const { Router } = require('express');
 
 const userController = require('../controllers/userController');
-const verifyLoggedUser = require('../middleware/authentication');
-const { validationCreateNewUser, validationUpdateUser } = require('../middleware/validationMiddleware')
+const { verifyLoggedUser } = require('../middleware/authentication');
+const { validationCreateNewUser, validationUpdateUser } = require('../middleware/userMiddlewares')
 
 const userRouter = Router();
 
-userRouter.post('/usuario', userController.createNewUser);
-
-userRouter.use(verifyLoggedUser);
+userRouter.post('/usuario',
+    validationCreateNewUser,
+    userController.createNewUser);
 
 userRouter.put("/usuario",
-    validationCreateNewUser,
+    verifyLoggedUser,
+    validationUpdateUser,
     userController.userUpdate);
 
 userRouter.get('/usuario',
+    verifyLoggedUser,
     userController.loggedUserDetails);
 
-userRouter.get('/usuario',
-    validationUpdateUser,
-    userController.loggedUserDetails);
 
 module.exports = userRouter;
