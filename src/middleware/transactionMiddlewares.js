@@ -17,7 +17,7 @@ const validateCreateTransaction = [
     validationMiddleware,
 ];
 const validateUpdateTransaction = [
-    param('id').notEmpty().withMessage('Id da transação é obrigatório.'),
+    param('id').notEmpty().withMessage('Id da transação é obrigatório.').isNumeric().withMessage('Id da transação deve ser um número.'),
     body('descricao').notEmpty().withMessage('Descrição é obrigatória'),
     body('valor').notEmpty().withMessage('Valor é obrigatório'),
     body('data').notEmpty().withMessage('Data é obrigatória'),
