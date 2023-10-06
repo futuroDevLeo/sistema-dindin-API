@@ -3,7 +3,7 @@ const { pool } = require('../db');
 const addNewUserDatabase = async (nome, email, hashPassword) => {
     try {
         const newUser = await pool.query(
-            'insert into usuarios (nome, email, senha) values ($1, $2, $3) returning *',
+            'INSERT INTO usuarios (nome, email, senha) VALUES ($1, $2, $3) returning *',
             [nome, email, hashPassword]
         );
         return newUser.rows[0];
@@ -59,7 +59,6 @@ const existEmailDatabase = async (email, id) => {
         return new Error('Email já cadastrado em outra conta.');
     }
 };
-
 
 module.exports = {
     findByEmail,
