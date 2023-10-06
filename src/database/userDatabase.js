@@ -3,7 +3,7 @@ const { pool } = require('../db');
 const addNewUserDatabase = async (nome, email, hashPassword) => {
     try {
         const newUser = await pool.query(
-            'INSERT INTO usuarios (nome, email, senha) VALUES ($1, $2, $3) returning *',
+            'INSERT INTO usuarios (nome, email, senha) VALUES ($1, $2, $3) returning id, nome, email',
             [nome, email, hashPassword]
         );
         return newUser.rows[0];
@@ -43,6 +43,22 @@ const findByEmail = async (email) => {
     }
 };
 
+const findByID = async (id) => {
+    const query = {
+        text: 'select id, nome, email from usuarios WHERE id = $1',
+        values: [id]
+    };
+
+    try {
+        const user = await pool.query(query);
+        return user;
+    }
+    catch (error) {
+        console.log(error);
+        return new Error('Erro na consulta por ID.');
+    }
+};
+
 const existEmailDatabase = async (email, id) => {
 
     const query = {
@@ -62,6 +78,7 @@ const existEmailDatabase = async (email, id) => {
 
 module.exports = {
     findByEmail,
+    findByID,
     addNewUserDatabase,
     userUpdateDatabase,
     existEmailDatabase

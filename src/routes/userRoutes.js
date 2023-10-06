@@ -15,6 +15,9 @@ userRouter.put("/usuario",
     userController.userUpdate);
 
 userRouter.get('/usuario',
+    userController.loggedUserDetails);
+
+userRouter.get('/usuario',
     validationUpdateUser,
     userController.loggedUserDetails);
 
