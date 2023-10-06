@@ -1,0 +1,1 @@
+// chamar o middleware authenticaution antes de todas as rotas
