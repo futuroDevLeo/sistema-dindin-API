@@ -16,5 +16,12 @@ transactionRouter.put('/transacao/:id',
     validateUpdateTransaction,
     transactionController.updateTransaction);
 
+
+transactionRouter.get('/transacao/extrato',
+    verifyLoggedUser,
+    transactionController.getExtract);
+
+
+
 module.exports = transactionRouter;
 

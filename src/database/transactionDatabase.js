@@ -58,8 +58,32 @@ const updateTransactionDatabase = async (transactionId, descricao, valor, data, 
         return new Error('Erro ao atualizar transação.');
     }
 };
+
+const getExtractDatabase = async (userId) => {
+    try {
+        const query = {
+            text: `
+            SELECT
+                SUM(CASE WHEN tipo = 'entrada' THEN valor ELSE 0 END) as entrada,
+                SUM(CASE WHEN tipo = 'saida' THEN valor ELSE 0 END) as saida
+            FROM
+                transacoes
+            WHERE
+                usuario_id = $1;
+            `,
+            values: [userId],
+        }
+        const extract = await pool.query(query);
+        return extract.rows[0];
+    }
+    catch (error) {
+        console.log(error);
+        return new Error('Erro ao buscar extrato.');
+    }
+};
 module.exports = {
     getAllTransactionsDatabase,
     checkTransactionOwnershipForUserDatabase,
     updateTransactionDatabase,
+    getExtractDatabase,
 };

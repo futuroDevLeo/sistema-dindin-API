@@ -1,4 +1,4 @@
-const { getAllTransactionsDatabase, checkTransactionOwnershipForUserDatabase, updateTransactionDatabase } = require('../database/transactionDatabase');
+const { getAllTransactionsDatabase, checkTransactionOwnershipForUserDatabase, updateTransactionDatabase, getExtractDatabase } = require('../database/transactionDatabase');
 
 
 const getAllTransactions = async (req, res) => {
@@ -31,8 +31,23 @@ const updateTransaction = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+const getExtract = async (req, res) => {
+    try {
+        const { id } = req.user;
+        const extract = await getExtractDatabase(id);
 
+        extract.entrada = extract.entrada ? extract.entrada : 0;
+        extract.saida = extract.saida ? extract.saida : 0;
+
+        res.status(200).json(extract);
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ message: error.message });
+    }
+};
 module.exports = {
     getAllTransactions,
     updateTransaction,
+    getExtract,
 };  
