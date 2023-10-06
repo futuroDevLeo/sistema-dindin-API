@@ -81,9 +81,40 @@ const getExtractDatabase = async (userId) => {
         return new Error('Erro ao buscar extrato.');
     }
 };
+
+const deleteTransactionDatabase = async (transactionId) => {
+    const query = {
+        text: `DELETE FROM transacoes WHERE id = $1`,
+        values: [transactionId],
+    };
+    try {
+        await pool.query(query);
+    }
+    catch (error) {
+        console.log(error);
+        return new Error('Erro ao deletar transação.');
+    }
+};
+
+const findByIdTransactionDatabase = async (transactionId) => {
+    const query = {
+        text: `SELECT * FROM transacoes WHERE id = $1`,
+        values: [transactionId],
+    };
+    try {
+        const { rows } = await pool.query(query);
+        return rows[0];
+    }
+    catch (error) {
+        console.log(error);
+        return new Error('Erro ao buscar transação.');
+    }
+};
 module.exports = {
     getAllTransactionsDatabase,
     checkTransactionOwnershipForUserDatabase,
     updateTransactionDatabase,
     getExtractDatabase,
+    deleteTransactionDatabase,
+    findByIdTransactionDatabase,
 };

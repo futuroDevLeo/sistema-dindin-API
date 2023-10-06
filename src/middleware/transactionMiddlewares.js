@@ -31,8 +31,13 @@ const validateUpdateTransaction = [
     validationMiddleware,
 ];
 
+const validateDeleteTransaction = [
+    param('id').notEmpty().withMessage('Id da transação é obrigatório.').isNumeric().withMessage('Id da transação deve ser um número.'),
+    validationMiddleware,
+];
 
 module.exports = {
     validateUpdateTransaction,
     validateCreateTransaction,
+    validateDeleteTransaction,
 };
