@@ -1,7 +1,7 @@
 const { pool } = require('../db')
 
 
-const getAllCategories = async () => {
+const getAllCategoriesDatabase = async () => {
     try {
         const query = 'SELECT * FROM category';
         const result = await pool.query(query);
@@ -15,5 +15,5 @@ const getAllCategories = async () => {
 
 
 module.exports = {
-    getAllCategories,
+    getAllCategoriesDatabase,
 }
