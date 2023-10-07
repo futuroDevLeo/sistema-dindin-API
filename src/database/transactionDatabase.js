@@ -58,8 +58,63 @@ const updateTransactionDatabase = async (transactionId, descricao, valor, data, 
         return new Error('Erro ao atualizar transação.');
     }
 };
+
+const getExtractDatabase = async (userId) => {
+    try {
+        const query = {
+            text: `
+            SELECT
+                SUM(CASE WHEN tipo = 'entrada' THEN valor ELSE 0 END) as entrada,
+                SUM(CASE WHEN tipo = 'saida' THEN valor ELSE 0 END) as saida
+            FROM
+                transacoes
+            WHERE
+                usuario_id = $1;
+            `,
+            values: [userId],
+        }
+        const extract = await pool.query(query);
+        return extract.rows[0];
+    }
+    catch (error) {
+        console.log(error);
+        return new Error('Erro ao buscar extrato.');
+    }
+};
+
+const deleteTransactionDatabase = async (transactionId) => {
+    const query = {
+        text: `DELETE FROM transacoes WHERE id = $1`,
+        values: [transactionId],
+    };
+    try {
+        await pool.query(query);
+    }
+    catch (error) {
+        console.log(error);
+        return new Error('Erro ao deletar transação.');
+    }
+};
+
+const findByIdTransactionDatabase = async (transactionId) => {
+    const query = {
+        text: `SELECT * FROM transacoes WHERE id = $1`,
+        values: [transactionId],
+    };
+    try {
+        const { rows } = await pool.query(query);
+        return rows[0];
+    }
+    catch (error) {
+        console.log(error);
+        return new Error('Erro ao buscar transação.');
+    }
+};
 module.exports = {
     getAllTransactionsDatabase,
     checkTransactionOwnershipForUserDatabase,
     updateTransactionDatabase,
+    getExtractDatabase,
+    deleteTransactionDatabase,
+    findByIdTransactionDatabase,
 };
