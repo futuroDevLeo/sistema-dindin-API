@@ -1,12 +1,11 @@
 const { Router } = require('express');
 const categoryController = require('../controllers/categoryController');
-const { verifyLoggedUser } = require('../middleware/authentication')
+const authMiddleware = require('../middleware/authMiddlewares')
 
 const categoryRouter = Router();
 
 categoryRouter.get('/categoria',
-    verifyLoggedUser,
+    authMiddleware.verifyLoggedUser,
     categoryController.getAllCategories);
-
 
 module.exports = categoryRouter;

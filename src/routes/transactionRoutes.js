@@ -1,43 +1,43 @@
 const { Router } = require('express');
 
-const transactionController = require('../controllers/transactionController');
+const authMiddleware = require('../middleware/authMiddlewares')
 
-const { verifyLoggedUser } = require('../middleware/authentication');
+const transactionController = require('../controllers/transactionController');
 
 const transactionMiddlewares = require('../middleware/transactionMiddlewares');
 
 const transactionRouter = Router();
 
 transactionRouter.get('/transacao',
-    verifyLoggedUser,
+    authMiddleware.verifyLoggedUser,
     transactionController.getAllTransactions
 );
 
 transactionRouter.get('/transacao/extrato',
-    verifyLoggedUser,
+    authMiddleware.verifyLoggedUser,
     transactionController.getExtract);
 
 
 transactionRouter.get('/transacao/:id',
-    verifyLoggedUser,
+    authMiddleware.verifyLoggedUser,
     transactionMiddlewares.validateGetTransaction,
     transactionController.getTransactionById
 );
 
 transactionRouter.put('/transacao/:id',
-    verifyLoggedUser,
+    authMiddleware.verifyLoggedUser,
     transactionMiddlewares.validateUpdateTransaction,
     transactionController.updateTransaction
 );
 
 transactionRouter.post('/transacao',
-    verifyLoggedUser,
+    authMiddleware.verifyLoggedUser,
     transactionMiddlewares.validateCreateTransaction,
     transactionController.registerTransaction
 );
 
 transactionRouter.delete('/transacao/:id',
-    verifyLoggedUser,
+    authMiddleware.verifyLoggedUser,
     transactionMiddlewares.validateDeleteTransaction,
     transactionController.deleteTransaction);
 

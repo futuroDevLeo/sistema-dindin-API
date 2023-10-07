@@ -1,7 +1,7 @@
 const { Router } = require('express');
 
 const userController = require('../controllers/userController');
-const { verifyLoggedUser } = require('../middleware/authentication');
+const authMiddleware = require('../middleware/authMiddlewares')
 const { validationCreateNewUser, validationUpdateUser } = require('../middleware/userMiddlewares')
 
 const userRouter = Router();
@@ -11,12 +11,12 @@ userRouter.post('/usuario',
     userController.createNewUser);
 
 userRouter.put("/usuario",
-    verifyLoggedUser,
+    authMiddleware.verifyLoggedUser,
     validationUpdateUser,
     userController.userUpdate);
 
 userRouter.get('/usuario',
-    verifyLoggedUser,
+    authMiddleware.verifyLoggedUser,
     userController.loggedUserDetails);
 
 
