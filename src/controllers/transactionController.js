@@ -1,5 +1,6 @@
 const {
     getAllTransactionsDatabase,
+    getFilteredTransactionsDatabase,
     getTransactionByIdDatabase,
     checkTransactionOwnershipForUserDatabase,
     updateTransactionDatabase,
@@ -12,7 +13,13 @@ const { getCategoryByIdDatabase } = require('../database/categoryDatabase');
 
 const getAllTransactions = async (req, res) => {
     const { id } = req.user;
+    const { filtro } = req.query;
+    console.log(filtro);
     try {
+        if (filtro) {
+            const transactionsFiltered = await getFilteredTransactionsDatabase(id, filtro);
+            return res.status(200).json(transactionsFiltered);
+        }
         const transactions = await getAllTransactionsDatabase(id);
         return res.status(200).json(transactions);
     }

@@ -29,6 +29,37 @@ const getAllTransactionsDatabase = async (userId) => {
     }
 };
 
+const getFilteredTransactionsDatabase = async (userId, filtro) => {
+    const query = {
+        text: `
+        SELECT
+        transacoes.id,
+        transacoes.tipo,
+        transacoes.descricao,
+        transacoes.valor,
+        transacoes.data,
+        transacoes.usuario_id,
+        transacoes.categoria_id,
+        categorias.descricao AS categoria_nome
+      FROM
+        transacoes
+      JOIN
+        categorias ON transacoes.categoria_id = categorias.id
+       WHERE categorias.descricao ILIKE ANY ($1)
+       and transacoes.usuario_id = $2;
+        `,
+        values: [filtro, userId],
+    }
+    try {
+        const transactionsFilted = await pool.query(query);
+        return transactionsFilted.rows;
+    }
+    catch (error) {
+        console.log(error);
+        return new Error('Erro na consulta das transações.');
+    }
+};
+
 const getTransactionByIdDatabase = async (id) => {
     const query = {
         text: 'SELECT * FROM transacoes WHERE id = $1',
@@ -138,5 +169,6 @@ module.exports = {
     updateTransactionDatabase,
     registerTransactionDatabase,
     getExtractDatabase,
-    deleteTransactionDatabase
+    deleteTransactionDatabase,
+    getFilteredTransactionsDatabase,
 };
