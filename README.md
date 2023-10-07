@@ -4,11 +4,11 @@
 
 ## Como entregar?
 
-- [x] Faça o fork desse repositório para o seu GitHub
-- [x] Clone o seu repositório em sua máquina
-- [ ] Desenvolva seu projeto, fazendo commits a cada alteração e push
-- [ ] Crie um PR (pull request)
-- [ ] Envie o link do pull request que você criou na plataforma da Cubos
+- [X] Faça o fork desse repositório para o seu GitHub
+- [X] Clone o seu repositório em sua máquina
+- [X] Desenvolva seu projeto, fazendo commits a cada alteração e push
+- [X] Crie um PR (pull request)
+- [X] Envie o link do pull request que você criou na plataforma da Cubos
 
 ### ⚠️ Importante: Se o pull request não for criado e enviado na plataforma o feedback não será fornecido e constará como não entregue
 
@@ -16,18 +16,18 @@
 
 Seu papel é construir uma RESTful API que permita:
 
-- Cadastrar Usuário
-- Fazer Login
-- Detalhar Perfil do Usuário Logado
-- Editar Perfil do Usuário Logado
-- Listar categorias
-- Listar transações
-- Detalhar transação
-- Cadastrar transação
-- Editar transação
-- Remover transação
-- Obter extrato de transações
-- [Extra] Filtrar transações por categoria
+- [X]Cadastrar Usuário
+- [X]Fazer Login
+- [X]Detalhar Perfil do Usuário Logado
+- [X]Editar Perfil do Usuário Logado
+- [X]Listar categorias
+- [X]Listar transações
+- [X]Detalhar transação
+- [X]Cadastrar transação
+- [X]Editar transação
+- [X]Remover transação
+- [X]Obter extrato de transações
+- [X][Extra] Filtrar transações por categoria
 
 **Importante: Lembre-se sempre que cada usuário só pode ver e manipular seus próprios dados e suas próprias transações. Não atender a este pré-requisito é uma falha de segurança gravíssima!**
 
