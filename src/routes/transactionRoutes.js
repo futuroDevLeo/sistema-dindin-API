@@ -12,6 +12,11 @@ transactionRouter.get('/transacao',
     transactionController.getAllTransactions
 );
 
+transactionRouter.get('/transacao/:id',
+    verifyLoggedUser,
+    transactionController.getTransactionById
+);
+
 transactionRouter.put('/transacao/:id',
     verifyLoggedUser,
     transactionMiddlewares.validateUpdateTransaction,
