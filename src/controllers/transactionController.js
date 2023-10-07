@@ -81,7 +81,7 @@ const deleteTransaction = async (req, res) => {
     const { id: userId } = req.user;
     try {
         // verifica se a transação existe
-        const transactionExiste = await findByIdTransactionDatabase(transactionId);
+        const transactionExiste = await getTransactionByIdDatabase(transactionId);
         if (!transactionExiste) {
             return res.status(404).json({ message: 'Transação não encontrada.' });
         }
