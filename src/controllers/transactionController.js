@@ -14,7 +14,7 @@ const { getCategoryByIdDatabase } = require('../database/categoryDatabase');
 const getAllTransactions = async (req, res) => {
     const { id } = req.user;
     const { filtro } = req.query;
-    console.log(filtro);
+
     try {
         if (filtro) {
             const transactionsFiltered = await getFilteredTransactionsDatabase(id, filtro);
