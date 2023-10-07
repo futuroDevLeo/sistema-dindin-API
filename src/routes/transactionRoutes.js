@@ -13,6 +13,11 @@ transactionRouter.get('/transacao',
     transactionController.getAllTransactions
 );
 
+transactionRouter.get('/transacao/extrato',
+    verifyLoggedUser,
+    transactionController.getExtract);
+
+
 transactionRouter.get('/transacao/:id',
     verifyLoggedUser,
     transactionMiddlewares.validateGetTransaction,
@@ -30,10 +35,6 @@ transactionRouter.post('/transacao',
     transactionMiddlewares.validateCreateTransaction,
     transactionController.registerTransaction
 );
-
-transactionRouter.get('/transacao/extrato',
-    verifyLoggedUser,
-    transactionController.getExtract);
 
 transactionRouter.delete('/transacao/:id',
     verifyLoggedUser,

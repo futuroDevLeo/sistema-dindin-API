@@ -27,11 +27,11 @@ const getTransactionById = async (req, res) => {
     try {
         const isTransactionOwner = await checkTransactionOwnershipForUserDatabase(id, userId);
         const transactionByID = await getTransactionByIdDatabase(id);
-        if (isTransactionOwner.length > 0 && transactionByID.length > 0) {
-            return res.status(200).json(transactionByID[0]);
+        if (isTransactionOwner.length > 0 && transactionByID) {
+            return res.status(200).json(transactionByID);
         }
 
-        if (isTransactionOwner.length > 0 || transactionByID.length > 0) {
+        if (isTransactionOwner.length > 0 || transactionByID) {
             return res.status(401).json({ mensagem: `A transação de ID:${id}, não pertence ao usuario logado` });
         }
 
