@@ -1,7 +1,6 @@
 const { getAllCategoriesDatabase } = require('../database/categoryDatabase');
 
 
-
 const getAllCategories = async (req, res) => {
     try {
         const categories = await getAllCategoriesDatabase();
@@ -16,4 +15,4 @@ const getAllCategories = async (req, res) => {
 
 module.exports = {
     getAllCategories,
-}
+};

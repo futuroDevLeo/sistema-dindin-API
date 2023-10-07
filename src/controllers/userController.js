@@ -1,7 +1,14 @@
-const { addNewUserDatabase, userUpdateDatabase, findByEmail, existEmailDatabase, findByID } = require("../database/userDatabase");
 const bcrypt = require('bcrypt');
+const {
+    addNewUserDatabase,
+    userUpdateDatabase,
+    findByEmail,
+    existEmailDatabase,
+    findByID
+} = require("../database/userDatabase");
 
 const rouds = 10;
+
 
 const createNewUser = async (req, res) => {
     const { nome, email, senha } = req.body;
@@ -61,6 +68,7 @@ const loggedUserDetails = async (req, res) => {
         return res.status(500).json({ mensagem: "Erro interno do servidor." })
     }
 };
+
 
 module.exports = {
     createNewUser,

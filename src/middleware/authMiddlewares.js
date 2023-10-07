@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
 const { findByID } = require('../database/userDatabase');
-const passwordJwt = process.env.SECRET_KEY;
 const { body, param } = require('express-validator');
 const { validationMiddleware } = require('./validationMiddleware');
+
+const passwordJwt = process.env.SECRET_KEY;
 
 const verifyLoggedUser = async (req, res, next) => {
     const { authorization } = req.headers;
@@ -35,14 +36,14 @@ const verifyLoggedUser = async (req, res, next) => {
     }
 };
 
-
 const validationLogin = [
     body('email').isEmail().withMessage('O campo "email" deve ser um email válido').notEmpty().withMessage(' O campo email é obrigatório!'),
     body('senha').isLength({ min: 4 }).withMessage('O campo "senha" deve ter pelo menos 4 caracteres').notEmpty().withMessage(' O campo senha é obrigatório!'),
     validationMiddleware,
 ];
 
+
 module.exports = {
     validationLogin,
     verifyLoggedUser,
-}
+};

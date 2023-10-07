@@ -16,18 +16,18 @@
 
 Seu papel é construir uma RESTful API que permita:
 
-- [X]Cadastrar Usuário
-- [X]Fazer Login
-- [X]Detalhar Perfil do Usuário Logado
-- [X]Editar Perfil do Usuário Logado
-- [X]Listar categorias
-- [X]Listar transações
-- [X]Detalhar transação
-- [X]Cadastrar transação
-- [X]Editar transação
-- [X]Remover transação
-- [X]Obter extrato de transações
-- [X][Extra] Filtrar transações por categoria
+- [X] Cadastrar Usuário
+- [X] Fazer Login
+- [X] Detalhar Perfil do Usuário Logado
+- [X] Editar Perfil do Usuário Logado
+- [X] Listar categorias
+- [X] Listar transações
+- [X] Detalhar transação
+- [X] Cadastrar transação
+- [X] Editar transação
+- [X] Remover transação
+- [X] Obter extrato de transações
+- [X] [Extra] Filtrar transações por categoria
 
 **Importante: Lembre-se sempre que cada usuário só pode ver e manipular seus próprios dados e suas próprias transações. Não atender a este pré-requisito é uma falha de segurança gravíssima!**
 

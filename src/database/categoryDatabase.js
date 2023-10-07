@@ -28,7 +28,8 @@ const getCategoryByIdDatabase = async (id) => {
     }
 };
 
+
 module.exports = {
     getAllCategoriesDatabase,
     getCategoryByIdDatabase,
-}
+};

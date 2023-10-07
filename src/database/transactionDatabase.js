@@ -123,7 +123,6 @@ const registerTransactionDatabase = async (descricao, valor, data, categoria_id,
     }
 };
 
-
 const getExtractDatabase = async (userId) => {
     try {
         const query = {

@@ -1,6 +1,7 @@
-const { findByEmail } = require("../database/userDatabase");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { findByEmail } = require("../database/userDatabase");
+
 
 const login = async (req, res) => {
     const { email, senha } = req.body;
@@ -37,6 +38,7 @@ const login = async (req, res) => {
         return res.status(500).json({ "mensagem": "Erro ao realizar login." });
     }
 };
+
 
 module.exports = {
     login,
