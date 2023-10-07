@@ -5,8 +5,10 @@ const {
     updateTransactionDatabase,
     registerTransactionDatabase,
     getExtractDatabase,
-    deleteTransactionDatabase
+    deleteTransactionDatabase,
 } = require('../database/transactionDatabase');
+
+const { getCategoryByIdDatabase } = require('../database/categoryDatabase');
 
 const getAllTransactions = async (req, res) => {
     const { id } = req.user;
@@ -104,6 +106,10 @@ const registerTransaction = async (req, res) => {
     const { descricao, valor, data, categoria_id, tipo } = req.body;
 
     try {
+        const categoryExiste = await getCategoryByIdDatabase(categoria_id);
+        if (!categoryExiste) {
+            return res.status(400).json({ mensagem: 'Categoria não encontrada.' });
+        }
         const newTransaction = await registerTransactionDatabase(descricao, valor, data, categoria_id, tipo, id);
         return res.status(201).json(newTransaction);
     } catch (error) {
