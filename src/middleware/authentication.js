@@ -8,10 +8,13 @@ const verifyLoggedUser = async (req, res, next) => {
     if (!authorization) {
         return res.status(401).json({ mensagem: 'Não autorizado' });
     }
+
     const token = authorization.split(' ')[1];
+
     if (!token) {
         return res.status(401).json({ mensagem: 'Não autorizado' });
     }
+
     try {
         const { id } = jwt.verify(token, passwordJwt);
 

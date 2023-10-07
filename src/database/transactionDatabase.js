@@ -29,6 +29,21 @@ const getAllTransactionsDatabase = async (userId) => {
     }
 };
 
+const getTransactionByIdDatabase = async (id) => {
+    const query = {
+        text: 'SELECT * FROM transacoes WHERE id = $1',
+        values: [id]
+    };
+
+    try {
+        const { rows } = await pool.query(query);
+        return rows;
+    } catch (error) {
+        console.log(error);
+        return new Error('Erro na consulta da transação.');
+    }
+};
+
 const checkTransactionOwnershipForUserDatabase = async (transactionId, userId) => {
     const query = {
         text: `SELECT * FROM transacoes WHERE id = $1 AND usuario_id = $2`,
@@ -36,7 +51,7 @@ const checkTransactionOwnershipForUserDatabase = async (transactionId, userId) =
     };
     try {
         const { rows } = await pool.query(query);
-        return rows.length > 0;
+        return rows;
     }
     catch (error) {
         console.log(error);
@@ -47,17 +62,36 @@ const checkTransactionOwnershipForUserDatabase = async (transactionId, userId) =
 const updateTransactionDatabase = async (transactionId, descricao, valor, data, categoria_id, tipo) => {
     // atualizar transação	
     const query = {
-        text: `UPDATE transacoes SET descricao = $1, valor = $2, data = $3, categoria_id = $4, tipo = $5 WHERE id = $6`,
+        text: `UPDATE transacoes SET descricao = $1, valor = $2, data = $3, categoria_id = $4, tipo = $5
+        WHERE id = $6 returning *`,
         values: [descricao, valor, data, categoria_id, tipo, transactionId],
     };
     try {
-        await pool.query(query);
+        const { rows } = await pool.query(query);
+        return rows[0];
     }
     catch (error) {
         console.log(error);
         return new Error('Erro ao atualizar transação.');
     }
 };
+
+const registerTransactionDatabase = async (descricao, valor, data, categoria_id, tipo, usuario_id) => {
+    const query = {
+        text: `INSERT INTO transacoes (descricao, valor, data, categoria_id, usuario_id, tipo)
+    VALUES ($1, $2, $3, $4, $5, $6) returning *`,
+        values: [descricao, valor, data, categoria_id, usuario_id, tipo]
+    };
+
+    try {
+        const { rows } = await pool.query(query);
+        return rows[0];
+    } catch (error) {
+        console.log(error);
+        return new Error('Erro ao cadastrar transação.');
+    }
+};
+
 
 const getExtractDatabase = async (userId) => {
     try {
@@ -96,25 +130,13 @@ const deleteTransactionDatabase = async (transactionId) => {
     }
 };
 
-const findByIdTransactionDatabase = async (transactionId) => {
-    const query = {
-        text: `SELECT * FROM transacoes WHERE id = $1`,
-        values: [transactionId],
-    };
-    try {
-        const { rows } = await pool.query(query);
-        return rows[0];
-    }
-    catch (error) {
-        console.log(error);
-        return new Error('Erro ao buscar transação.');
-    }
-};
+
 module.exports = {
     getAllTransactionsDatabase,
+    getTransactionByIdDatabase,
     checkTransactionOwnershipForUserDatabase,
     updateTransactionDatabase,
+    registerTransactionDatabase,
     getExtractDatabase,
-    deleteTransactionDatabase,
-    findByIdTransactionDatabase,
+    deleteTransactionDatabase
 };
