@@ -76,6 +76,7 @@ const existEmailDatabase = async (email, id) => {
     }
 };
 
+
 module.exports = {
     findByEmail,
     findByID,

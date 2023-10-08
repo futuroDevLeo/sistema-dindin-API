@@ -2,7 +2,6 @@ const { body, param } = require('express-validator');
 
 const { validationMiddleware } = require('./validationMiddleware');
 
-
 const validateCreateTransaction = [
     body('descricao').notEmpty().withMessage('Descrição é obrigatória'),
     body('valor').notEmpty().withMessage('Valor é obrigatório'),
