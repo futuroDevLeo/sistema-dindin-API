@@ -91,7 +91,6 @@ const checkTransactionOwnershipForUserDatabase = async (transactionId, userId) =
 };
 
 const updateTransactionDatabase = async (transactionId, descricao, valor, data, categoria_id, tipo) => {
-    // atualizar transação	
     const query = {
         text: `UPDATE transacoes SET descricao = $1, valor = $2, data = $3, categoria_id = $4, tipo = $5
         WHERE id = $6 returning *`,
@@ -137,8 +136,13 @@ const getExtractDatabase = async (userId) => {
             `,
             values: [userId],
         }
-        const extract = await pool.query(query);
-        return extract.rows[0];
+        const { rows } = await pool.query(query);
+        const { entrada, saida } = rows[0];
+        const extract = {
+            entrada: +entrada,
+            saida: +saida
+        };
+        return extract;
     }
     catch (error) {
         console.log(error);
