@@ -20,6 +20,7 @@ const getAllTransactions = async (req, res) => {
             const transactionsFiltered = await getFilteredTransactionsDatabase(id, filtro);
             return res.status(200).json(transactionsFiltered);
         }
+
         const transactions = await getAllTransactionsDatabase(id);
         return res.status(200).json(transactions);
     }
@@ -55,8 +56,16 @@ const updateTransaction = async (req, res) => {
     const { id } = req.params;
     const { descricao, valor, data, categoria_id, tipo } = req.body;
     const { id: userId } = req.user;
+
     try {
+        const categoryExiste = await getCategoryByIdDatabase(categoria_id);
+
+        if (!categoryExiste) {
+            return res.status(400).json({ mensagem: 'Categoria não encontrada.' });
+        }
+
         const isTransactionOwner = await checkTransactionOwnershipForUserDatabase(id, userId);
+
         if (isTransactionOwner.length < 1) {
             return res.status(401).json({ message: 'A transação não pertece ao usuário logado. Sem permisão para edição!' });
         }
@@ -78,34 +87,37 @@ const getExtract = async (req, res) => {
         extract.entrada = extract.entrada ? extract.entrada : 0;
         extract.saida = extract.saida ? extract.saida : 0;
 
-        res.status(200).json(extract);
+        return res.status(200).json(extract);
     }
     catch (error) {
         console.log(error);
-        res.status(500).json({ message: error.message });
+        return res.status(500).json({ mensagem: 'Erro interno de servidor.' });
     }
 };
 
 const deleteTransaction = async (req, res) => {
     const { id: transactionId } = req.params;
     const { id: userId } = req.user;
+
     try {
-        // verifica se a transação existe
         const transactionExiste = await getTransactionByIdDatabase(transactionId);
+
         if (!transactionExiste) {
-            return res.status(404).json({ message: 'Transação não encontrada.' });
+            return res.status(404).json({ mensagem: 'Transação não encontrada.' });
         }
-        // verifica se a transação pertence ao usuário logado
+
         const isTransactionOwner = transactionExiste.usuario_id === userId;
-        if (isTransactionOwner) {
-            return res.status(401).json({ message: 'A transação não pertece ao usuário logado. Sem permisão para exclusão!' });
+
+        if (!isTransactionOwner) {
+            return res.status(401).json({ mensagem: 'A transação não pertece ao usuário logado. Sem permisão para exclusão!' });
         }
-        await deleteTransactionDatabase(transactionId);
-        res.status(204).send();
+
+        const deletedTransaction = await deleteTransactionDatabase(transactionId);
+        return res.status(200).json(deletedTransaction);
     }
     catch (error) {
         console.log(error);
-        res.status(500).json({ message: error.message });
+        return res.status(500).json({ mensagem: 'Erro interno do servidor.' });
     }
 };
 
